@@ -11,6 +11,8 @@
 LCDWIKI_KBV my_lcd(ILI9488, 40, 38, 39, 43, 41);  //model,cs,cd,wr,rd,reset
 LCDWIKI_TOUCH my_touch(53, 52, 50, 51, 44);       //tcs,tclk,tdout,tdin,tirq
 
+uint16_t COLORPRUEBA = my_lcd.Color_To_565(9, 58, 62);
+
                                             /*  C     M   Y   K */
 #define AZULJUERTE      0xDB1A16      /*   0, 255, 255      ALERTA*/
 #define DARKPURPLE      0x30011F      /*   0,   0,   0      LETRAS*/
@@ -136,7 +138,7 @@ void setup() {
   Serial.begin(9600);
   my_lcd.Init_LCD();
   my_touch.TP_Init(my_lcd.Get_Rotation(), my_lcd.Get_Display_Width(), my_lcd.Get_Display_Height());
-  my_lcd.Fill_Screen(AZULCLARO);
+  my_lcd.Fill_Screen(COLORPRUEBA);
   Serial.print(my_lcd.Get_Display_Width());
   Serial.print(my_lcd.Get_Display_Height());
   if(PIXEL_NUMBER != 60){
@@ -184,7 +186,7 @@ void Menu(){
   char S[2] = " ";
   S[0] = 246;
   char S1[2] = " ";
-  my_lcd.Fill_Screen(AZULCLARO);
+  my_lcd.Fill_Screen(COLORPRUEBA);
   my_lcd.Draw_Round_Rectangle(5, 5, 210, 55, 10);
   show_string("00:00:00", 15, 17, 4, GREENEAGLE, DARKPURPLE, 1);
   my_lcd.Fill_Circle(25, 95, 20);
@@ -194,7 +196,7 @@ void Menu(){
   my_lcd.Fill_Circle(140, 95, 20);  
   show_string("^", 133, 90, 3, GREENEAGLE, DARKPURPLE, 1);
   my_lcd.Fill_Circle(190, 95, 20);
-  my_lcd.Set_Draw_color(0, 172, 177);
+ // my_lcd.Set_Draw_color(0, 172, 177);
 
   int xinit = 185;
   int yinit = 90;
