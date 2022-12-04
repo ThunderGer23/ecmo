@@ -105,16 +105,12 @@ typedef struct _button_info {
   uint16_t button_y;
 } button_info;
 
-button_info phone_button[6] = {
+button_info button[6] = {
   "Hola mundo", 4, DARKPURPLE, GREENEAGLE, EDG_X + BUTTON_R - 1, my_lcd.Get_Display_Height() - EDG_Y - 4 * BUTTON_SPACING_Y - 9 * BUTTON_R - 1,
-  "2", 4, DARKPURPLE, STARCOMMANDBLUE, EDG_X + 3 * BUTTON_R + BUTTON_SPACING_X - 1, my_lcd.Get_Display_Height() - EDG_Y - 4 * BUTTON_SPACING_Y - 9 * BUTTON_R - 1,
-  "3", 4, DARKPURPLE, AZULJUERTE, EDG_X + 5 * BUTTON_R + 2 * BUTTON_SPACING_X - 1, my_lcd.Get_Display_Height() - EDG_Y - 4 * BUTTON_SPACING_Y - 9 * BUTTON_R - 1,
-  "4", 4, DARKPURPLE, XANADU, EDG_X + BUTTON_R - 1, my_lcd.Get_Display_Height() - EDG_Y - 3 * BUTTON_SPACING_Y - 7 * BUTTON_R - 1,
-  "5", 4, DARKPURPLE, GREENEAGLE, EDG_X + 3 * BUTTON_R + BUTTON_SPACING_X - 1, my_lcd.Get_Display_Height() - EDG_Y - 3 * BUTTON_SPACING_Y - 7 * BUTTON_R - 1,
-  "6", 4, DARKPURPLE, GREENEAGLE, EDG_X + 5 * BUTTON_R + 2 * BUTTON_SPACING_X - 1, my_lcd.Get_Display_Height() - EDG_Y - 3 * BUTTON_SPACING_Y - 7 * BUTTON_R - 1,
+  "00:00:00", 4, GREENEAGLE, DARKPURPLE, 15, 17
 };
 
-uint16_t text_x = 7, text_y = 10, text_x_add = 6 * phone_button[0].button_name_size, text_y_add = 8 * phone_button[0].button_name_size;
+uint16_t text_x = 7, text_y = 10, text_x_add = 6 * button[0].button_name_size, text_y_add = 8 * button[0].button_name_size;
 uint16_t n = 0;
 
 void show_string(uint8_t *str, int16_t x, int16_t y, uint8_t csize, uint16_t fc, uint16_t bc, boolean mode) {
@@ -187,8 +183,11 @@ void Menu(){
   S[0] = 246;
   char S1[2] = " ";
   my_lcd.Fill_Screen(COLORPRUEBA);
-  my_lcd.Draw_Round_Rectangle(5, 5, 210, 55, 10);
-  show_string("00:00:00", 15, 17, 4, GREENEAGLE, DARKPURPLE, 1);
+
+  // my_lcd.Draw_Round_Rectangle(5, 5, 210, 55, 10);
+  // show_string("00:00:00", 15, 17, 4, GREENEAGLE, DARKPURPLE, 1);
+  my_lcd.Draw_Round_Rectangle(button[1].button_x, button[1].button_y, button[1].button_x+25, button[1].button_y+12, 35);
+  // my_lcd.Draw_Round_Rectangle(button[1].button_name, );
   my_lcd.Fill_Circle(25, 95, 20);
   show_string(">", 17, 85, 3, GREENEAGLE, DARKPURPLE, 1);
   my_lcd.Fill_Circle(75, 95, 20);
@@ -248,17 +247,17 @@ void loop() {
     py = my_touch.y;
   }  
 
-  // for (i = 0; i < sizeof(phone_button) / sizeof(button_info); i++) {
-  //   if (is_pressed(phone_button[i].button_x - BUTTON_R, phone_button[i].button_y - BUTTON_R, phone_button[i].button_x + BUTTON_R, phone_button[i].button_y + BUTTON_R, px, py)) {
-  //     my_lcd.Fill_Round_Rectangle(phone_button[i].button_x, phone_button[i].button_y, phone_button[i].button_x+25, phone_button[i].button_y+12, BUTTON_R);
-  //     show_string(phone_button[i].button_name, phone_button[i].button_x - strlen(phone_button[i].button_name) * phone_button[i].button_name_size * 6 / 2 + phone_button[i].button_name_size / 2 + 1, phone_button[i].button_y - phone_button[i].button_name_size * 8 / 2 + phone_button[i].button_name_size / 2 + 1, phone_button[i].button_name_size, GREENEAGLE, DARKPURPLE, 1);
+  // for (i = 0; i < sizeof(button) / sizeof(button_info); i++) {
+  //   if (is_pressed(button[i].button_x - BUTTON_R, button[i].button_y - BUTTON_R, button[i].button_x + BUTTON_R, button[i].button_y + BUTTON_R, px, py)) {
+  //     my_lcd.Fill_Round_Rectangle(button[i].button_x, button[i].button_y, button[i].button_x+25, button[i].button_y+12, BUTTON_R);
+  //     show_string(button[i].button_name, button[i].button_x - strlen(button[i].button_name) * button[i].button_name_size * 6 / 2 + button[i].button_name_size / 2 + 1, button[i].button_y - button[i].button_name_size * 8 / 2 + button[i].button_name_size / 2 + 1, button[i].button_name_size, GREENEAGLE, DARKPURPLE, 1);
   //     delay(100);
-  //     my_lcd.Set_Draw_color(phone_button[i].button_colour);
-  //     my_lcd.Fill_Round_Rectangle(phone_button[i].button_x, phone_button[i].button_y, phone_button[i].button_x+25, phone_button[i].button_y+12, BUTTON_R);
-  //     show_string(phone_button[i].button_name, phone_button[i].button_x - strlen(phone_button[i].button_name) * phone_button[i].button_name_size * 6 / 2 + phone_button[i].button_name_size / 2 + 1, phone_button[i].button_y - phone_button[i].button_name_size * 8 / 2 + phone_button[i].button_name_size / 2 + 1, phone_button[i].button_name_size, phone_button[i].button_name_colour, DARKPURPLE, 1);
+  //     my_lcd.Set_Draw_color(button[i].button_colour);
+  //     my_lcd.Fill_Round_Rectangle(button[i].button_x, button[i].button_y, button[i].button_x+25, button[i].button_y+12, BUTTON_R);
+  //     show_string(button[i].button_name, button[i].button_x - strlen(button[i].button_name) * button[i].button_name_size * 6 / 2 + button[i].button_name_size / 2 + 1, button[i].button_y - button[i].button_name_size * 8 / 2 + button[i].button_name_size / 2 + 1, button[i].button_name_size, button[i].button_name_colour, DARKPURPLE, 1);
   //     if (i < 12) {
   //       if (n < 13) {
-  //         show_string(phone_button[i].button_name, text_x, text_y, phone_button[i].button_name_size, GREENEAGLE, DARKPURPLE, 1);
+  //         show_string(button[i].button_name, text_x, text_y, button[i].button_name_size, GREENEAGLE, DARKPURPLE, 1);
   //         text_x += text_x_add - 1;
   //         n++;
   //       }
