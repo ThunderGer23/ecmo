@@ -95,7 +95,15 @@ void draw_bmp_picture(File fp){
     }
   }    
 }
-
+// Pintar Botones
+void Button(int posX, int posY, int width, int height, int round, uint8_t *name, int posXText, int posYText, int sizeText, uint16_t colorView, uint16_t colorPress, int enable, int type){
+  if (type){
+    my_lcd.Draw_Round_Rectangle(posX, posY, width, height, round);
+  }else{
+    my_lcd.Fill_Circle(posX, posY, round);
+  }
+  show_string(name, posXText, posYText, sizeText, colorView, colorPress, enable); 
+}
 typedef struct _button_info {
   uint8_t button_name[10];
   uint8_t button_name_size;
@@ -183,19 +191,16 @@ void Menu(){
   S[0] = 246;
   char S1[2] = " ";
   my_lcd.Fill_Screen(COLORPRUEBA);
+  // Timer
+  Button(5, 5, 210, 55, 10, "00:00:00", 15, 17, 4, GREENEAGLE, DARKPURPLE, 1, 1);   
+  //Botones con flechas
+  Button(25, 95, 0, 0, 20, ">", 17, 85, 3, GREENEAGLE, DARKPURPLE, 1, 0);
+  Button(75, 95, 0, 0, 20, "<", 65, 85, 3, GREENEAGLE, DARKPURPLE, 1, 0); 
+  Button(140, 95, 0, 0, 20, "^", 133, 90, 3, GREENEAGLE, DARKPURPLE, 1, 0);
 
-  // my_lcd.Draw_Round_Rectangle(5, 5, 210, 55, 10);
-  // show_string("00:00:00", 15, 17, 4, GREENEAGLE, DARKPURPLE, 1);
-  my_lcd.Draw_Round_Rectangle(button[1].button_x, button[1].button_y, button[1].button_x+25, button[1].button_y+12, 35);
-  // my_lcd.Draw_Round_Rectangle(button[1].button_name, );
-  my_lcd.Fill_Circle(25, 95, 20);
-  show_string(">", 17, 85, 3, GREENEAGLE, DARKPURPLE, 1);
-  my_lcd.Fill_Circle(75, 95, 20);
-  show_string("<", 65, 85, 3, GREENEAGLE, DARKPURPLE, 1);
-  my_lcd.Fill_Circle(140, 95, 20);  
-  show_string("^", 133, 90, 3, GREENEAGLE, DARKPURPLE, 1);
   my_lcd.Fill_Circle(190, 95, 20);
- // my_lcd.Set_Draw_color(0, 172, 177);
+  int colorView = my_lcd.Get_Draw_color();
+  my_lcd.Set_Draw_color(GREENEAGLE);
 
   int xinit = 185;
   int yinit = 90;
@@ -213,10 +218,9 @@ void Menu(){
       xinit += 3;
       yinit += 3;
     }
-  }
-  
+  }  
   //show_string("V", 185, 90, 2, GREENEAGLE, DARKPURPLE, 1);
-  
+  my_lcd.Set_Draw_color(colorView);
   show_string("Temperatura", 35, 130, 3, GREENEAGLE, DARKPURPLE, 1);
   my_lcd.Draw_Round_Rectangle(5, 165, 85, 215, 10);
   show_string("00", 15, 177, 4, GREENEAGLE, DARKPURPLE, 1);
